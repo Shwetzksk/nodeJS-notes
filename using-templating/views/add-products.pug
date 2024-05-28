@@ -3,18 +3,19 @@ html(lang="en")
    head
       meta(charset="UTF-8")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
-      title #{docTitle}
+      title Add Product
       link(rel="stylesheet", href="/css/main.css")
-   body  
-      header.nav-header
+   body 
+      header.nav-header 
          nav.navbar 
             ul.nav-list 
                li.nav-item 
                   a.nav-link(href="/") Home 
-               li.nav-item
+               li.nav-item 
                   a.nav-link(href="/admin/add-products") Add Products 
-      main.content          
-         each product in products
-            p= product.title
-         else 
-            p No products...
+      main.content 
+         form.form(action="/admin/add-products", method="post")
+            .title-input-box 
+               label Title 
+               input.title(type="text")
+            button.btn(type="submit") Submit

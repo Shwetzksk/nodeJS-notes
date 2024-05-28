@@ -278,3 +278,24 @@ If you named folder "templates" instead of "views" which stores html files then
 ```
 app.set("views","templates");
 ```
+
+### shop.js, how to use template engine
+
+```
+const express = require("express");
+const path = require("path");
+const rootDir = require("../util/path");
+const router = express.Router();
+
+router.get("/", (req, res, next) => {
+  res.render("shop")
+});
+
+module.exports = router;
+
+
+```
+
+- it will use default templating engine that's why we declared app.set("view engine","pug") in app.js
+- no need of mentioning path as we have defined default path for views in app.js i.e app.set("views", "views")
+- no need of adding file extension as express will automatically pick up pug as template engine because of app.set("views egine", "pug")
