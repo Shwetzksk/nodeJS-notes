@@ -266,4 +266,15 @@ app.use(shopRoutes);
 app.set("title","My Site");
 
 app.get("title"); //My Site
+
+app.set("view engine","pug");
+//it doesn't work for engine like this
+```
+
+Pug ships with built-in support for express and it auto register itself with express
+
+If you named folder "templates" instead of "views" which stores html files then
+
+```
+app.set("views","templates");
 ```

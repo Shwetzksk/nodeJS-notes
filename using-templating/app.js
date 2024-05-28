@@ -6,6 +6,10 @@ const path = require("path");
 const adminRoutes = require("./routes/admin");
 const shopRouters = require("./routes/shop");
 
+//setting up template engine
+app.set("view engine", "pug"); // set globally in our express server
+app.set("views", "views");
+
 app.use(bodyParser.urlencoded({ extended: false })); //yields middleware with body parsing
 app.use(express.static(path.join(__dirname, "public")));
 app.use(shopRouters);
