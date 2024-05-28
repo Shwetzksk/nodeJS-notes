@@ -3,7 +3,7 @@ html(lang="en")
    head
       meta(charset="UTF-8")
       meta(name="viewport", content="width=device-width, initial-scale=1.0")
-      title Shop
+      title #{docTitle}
       link(rel="stylesheet", href="/css/main.css")
    body  
       header.nav-header
@@ -14,5 +14,8 @@ html(lang="en")
                li.nav-item
                   a.nav-link(href="/admin/add-products") Add Products 
       main.content 
-         h1 Added Products
-         p Lists of product...
+         if products.length
+            each product in products
+               p #{product.title}
+         else 
+            p No products...
