@@ -257,3 +257,13 @@ app.use(shopRoutes);
 .
 .
 ```
+
+# Section 6: Working with Dynamic Content & Adding Templating Engines
+
+### Set variable globally in your express server
+
+```
+app.set("title","My Site");
+
+app.get("title"); //My Site
+```
