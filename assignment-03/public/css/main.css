@@ -1,0 +1,32 @@
+:root {
+  --primary-main: #0f5372;
+  --primary-dark: #033957;
+  --primary-light: #226884;
+  --secondary-main: #d4cb00;
+  --secondary-dark: #bdb40e;
+  --secondary-light: #fff734;
+}
+* {
+  margin: 0;
+  padding: 0;
+}
+.navbar {
+  background: var(--primary-main);
+  padding: 20px 10px;
+}
+.navbar__nav {
+  display: flex;
+  gap: 20px;
+  list-style: none;
+}
+.navbar__nav__link {
+  color: var(--secondary-dark);
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1.2rem;
+}
+.navbar__nav__link:hover,
+.navbar__nav__link:active,
+.navbar__nav__link.active-link {
+  color: var(--secondary-light);
+}
