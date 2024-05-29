@@ -5,9 +5,23 @@ const app = express();
 const path = require("path");
 const adminData = require("./routes/admin");
 const shopRouters = require("./routes/shop");
+const expressHbs = require("express-handlebars");
 
-//setting up template engine
-app.set("view engine", "pug"); // set globally in our express server
+//setting up HANDLEBARS template engine
+
+//initializing handlebars engine
+app.engine(
+  "hbs",
+  expressHbs({
+    layoutDir: "views/layouts/",
+    defaultLayout: "main-layout",
+    extname: "hbs",
+  })
+);
+app.set("view engine", "hbs");
+
+//setting up PUG template engine
+// app.set("view engine", "pug"); // set globally in our express server
 app.set("views", "views");
 
 app.use(bodyParser.urlencoded({ extended: false })); //yields middleware with body parsing

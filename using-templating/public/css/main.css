@@ -3,7 +3,7 @@
   --primary-dark: #033957;
   --primary-light: #226884;
   --secondary-main: #d4cb00;
-  --secondary-dark: #bdb40e;
+  --secondary-dark: #b9b117;
   --secondary-light: #fff734;
 }
 
@@ -28,7 +28,7 @@
 }
 .nav-link:hover,
 .nav-link:active,
-.nav-link .active-link {
+.nav-link.active-link {
   color: var(--secondary-light);
 }
 .content {

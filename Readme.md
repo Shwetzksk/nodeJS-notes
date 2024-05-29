@@ -279,7 +279,7 @@ If you named folder "templates" instead of "views" which stores html files then
 app.set("views","templates");
 ```
 
-### shop.js, how to use template engine
+## Pug template set-up
 
 ```
 const express = require("express");
@@ -299,3 +299,77 @@ module.exports = router;
 - it will use default templating engine that's why we declared app.set("view engine","pug") in app.js
 - no need of mentioning path as we have defined default path for views in app.js i.e app.set("views", "views")
 - no need of adding file extension as express will automatically pick up pug as template engine because of app.set("views egine", "pug")
+
+### sending dynamic data
+
+```
+router.get("/", (req, res, next) => {
+  res.render("shop", {
+    products: adminData.data,
+    pageTitle: "Products",
+    path: "/",
+  }); //it will use default templating engine that's why we declared app.set("view engine","pug")
+});
+
+```
+
+### using extend to share UI components
+
+```
+//layout/main-layout.pug
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title #{pageTitle}
+    link(rel="stylesheet", href="/css/main.css")
+      block styles
+  body
+    header.nav-header
+      nav.navbar
+        ul.nav-list
+            li.nav-item
+              a.nav-link(href="/" ,class=(path==="/"?"active-link":"")) Home
+            li.nav-item
+              a.nav-link(href="/admin/add-products",class=(path==="/admin/add-products"?"active-link":"")) Add Products
+    block content
+
+
+//404.pug
+//using extend to share layout template
+
+extends layouts/main-layout.pug
+
+block content
+  main.center-content
+    h1 Page not found!
+      p
+        a.link(href="/") Take me home
+
+```
+
+- "extends" used as "import"
+- "block content" used as keyword variable for replacement to render
+
+## Express-handlebars template set-up
+
+- handlebars doesn't auto setup express
+
+```
+const expressHbs = require("express-handlebars");
+
+//setting up HANDLEBARS template engine
+
+//initializing handlebars engine
+app.engine(
+  "hbs",
+  expressHbs({
+    layoutDir: "views/layouts/", //for adding pointer to "layout" directory
+    defaultLayout: "main-layout",
+    extname: "hbs", //without this express will not pickup this as handlebars
+  })
+);
+app.set("view engine", "hbs");
+
+```

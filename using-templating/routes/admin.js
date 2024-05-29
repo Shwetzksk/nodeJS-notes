@@ -9,6 +9,8 @@ router.get("/add-products", (req, res, next) => {
   res.render("add-products", {
     path: "/admin/add-products",
     pageTitle: "Add Products",
+    activeHome: false,
+    activeProducts: true,
   });
   // res.sendFile(path.join(rootDir, "views", "add-products.html"));
 });
