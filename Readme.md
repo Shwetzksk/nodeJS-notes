@@ -388,3 +388,20 @@ app.set("views", "views");
 <%= {someVariable}> //will render as string
 <%- include("includes/head.ejs) %> //will render as html
 ```
+
+# Section 7: Model View Controller (MVC):
+
+### Model:
+
+- Represent your data in your code
+- Work with your data (e.g save, fetch)
+
+### View:
+
+- What the users see
+- Decoupled from your application code
+
+### Controller:
+
+- Connecting your models and your views
+- Contains "in-between" logic.
