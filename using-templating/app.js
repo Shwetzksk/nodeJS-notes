@@ -9,16 +9,18 @@ const expressHbs = require("express-handlebars");
 
 //setting up HANDLEBARS template engine
 
+app.set("view engine", "ejs"); //setup of EJS
+
 //initializing handlebars engine
-app.engine(
-  "hbs",
-  expressHbs({
-    layoutDir: "views/layouts/",
-    defaultLayout: "main-layout",
-    extname: "hbs",
-  })
-);
-app.set("view engine", "hbs");
+// app.engine(
+//   "hbs",
+//   expressHbs({
+//     layoutDir: "views/layouts/",
+//     defaultLayout: "main-layout",
+//     extname: "hbs",
+//   })
+// );
+// app.set("view engine", "hbs");
 
 //setting up PUG template engine
 // app.set("view engine", "pug"); // set globally in our express server

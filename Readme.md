@@ -373,3 +373,18 @@ app.engine(
 app.set("view engine", "hbs");
 
 ```
+
+## EJS template set-up
+
+- doesn't need to setup like express-handlebars
+
+```
+app.set("view engine", "ejs");
+app.set("views", "views");
+
+```
+
+```
+<%= {someVariable}> //will render as string
+<%- include("includes/head.ejs) %> //will render as html
+```
