@@ -1,0 +1,18 @@
+<nav class="navbar">
+  <ul class="navbar__list">
+    <li class="navbar__list-item">
+      <a
+        href="/"
+        class="navbar__list-item__link <%= path&&path==='/' ? 'active-link' : '' %>"
+        >Home</a
+      >
+    </li>
+    <li class="navbar__list-item">
+      <a
+        href="/users"
+        class="navbar__list-item__link <%= path==='/users' ? 'active-link' : '' %>"
+        >Users</a
+      >
+    </li>
+  </ul>
+</nav>

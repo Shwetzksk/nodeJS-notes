@@ -1,0 +1,29 @@
+.add-user-form__container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  gap: 10px;
+}
+.add-user__input {
+  padding: 5px;
+  font-size: 1.1rem;
+  border: 1px solid #cdced7;
+  border-radius: 5px;
+}
+.add-user__input::placeholder {
+  color: #cdced7;
+}
+.add-user__input:focus {
+  outline-color: var(--secondary);
+}
+.add-user__btn {
+  padding: 5px;
+  background: var(--secondary);
+  color: #fff;
+  border-color: transparent;
+  border-radius: 5px;
+  cursor: pointer;
+}
+.add-user__btn:hover {
+  background: #38986d;
+}
