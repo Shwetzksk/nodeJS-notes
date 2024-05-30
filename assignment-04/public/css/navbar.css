@@ -1,0 +1,22 @@
+.navbar {
+  display: flex;
+  justify-content: center;
+  margin: 20px 0;
+}
+.navbar__list {
+  background: var(--primary);
+  display: flex;
+  gap: 30px;
+  list-style-type: none;
+  padding: 10px;
+  border-radius: 5px;
+}
+.navbar__list-item__link {
+  color: #fff;
+  text-decoration: none;
+}
+
+.navbar__list-item__link:hover,
+.active-link {
+  color: var(--accent);
+}

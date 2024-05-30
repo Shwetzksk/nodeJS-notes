@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <%- include("includes/head.ejs")%>
+    <link rel="stylesheet" href="/css/home.css" />
+  </head>
+  <body>
+    <%- include("includes/navigation.ejs") %>
+    <main class="container">
+      <form class="add-user-form" action="/" method="post">
+        <div class="add-user-form__container">
+          <input
+            placeholder="Enter full name..."
+            class="add-user__input"
+            type="text"
+            name="fullname"
+          />
+          <button class="add-user__btn" type="submit">Add User</button>
+        </div>
+      </form>
+    </main>
+  </body>
+</html>
