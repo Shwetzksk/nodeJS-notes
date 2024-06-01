@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="en">
+  <%- include("includes/head.ejs") %>
+  <body>
+    <%- include("includes/navigation.ejs") %>
+    <main class="content">
+      <% if(products.length){ %> <% for(let product of products){ %>
+      <p><%= product.title %></p>
+      <% }%> <% }else {%>
+      <p>No products...</p>
+      <% }%>
+    </main>
+  </body>
+</html>

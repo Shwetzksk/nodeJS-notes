@@ -1,0 +1,23 @@
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{pageTitle}}</title>
+    <link rel="stylesheet" href="/css/main.css" />
+  </head>
+  <body>
+    <header class="nav-header">
+      <nav class="navbar">
+        <ul class="nav-list">
+          <li class="nav-item">
+            <a href="/" class="nav-link {{#if activeHome}} active-link {{/if}}">Home</a>
+          </li>
+          <li class="nav-item">
+            <a href="/admin/add-products" class="nav-link {{#if activeProducts}} active-link {{/if}}">Add Products</a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    {{{body}}}
+  </body>
+</html>
