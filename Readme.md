@@ -1,4 +1,6 @@
-```
+# NodeJS notes
+
+```js
 const http = require("http");
 const fs = require("fs");
 
@@ -50,10 +52,9 @@ const server = http.createServer(rqListener);
 
 // nodejs will keep on running to listen to reqts
 server.listen(3000);
-
 ```
 
-### Order of execution
+## Order of execution
 
 1. Async code gets executed after execution of sync code
 
@@ -66,7 +67,7 @@ server.listen(3000);
   fs.writeFile(path,content,event)
   event: callback fn
 
-```
+```js
 fs.writeFile("message.txt","Hello kitty!",(error)=>{
    <!-- execute code -->
 })
@@ -79,7 +80,7 @@ fs.writeFile("message.txt","Hello kitty!",(error)=>{
 - But the event callabck fn get executed by event loop itself because it is fast executable callback.
 - Worker pool is responsible for heavy lifting and it is completely dettached from JS code, it run on different threads, it can spin-up multiple threads, it is closely intervened with OS your running the app on.
 
-### Order of Event loop execution:
+### Order of Event loop execution
 
 - Timers: Execute setTimeout, setInterval callback
 - Pending Callbacks: Execute I/O-related callbacks that are deferred
@@ -92,55 +93,53 @@ fs.writeFile("message.txt","Hello kitty!",(error)=>{
 
 Way 1:
 
-```
-function someFnName(){};
+```js
+function someFnName() {}
 
 module.export = someFnName;
 ```
 
 Way 2:
 
-```
-function someFnName(){};
+```js
+function someFnName() {}
 
 module.export = {
-   name:"shweta",
-   handler:someFnName
+  name: "shweta",
+  handler: someFnName,
 };
 ```
 
 Way 3:
 
-```
-function someFnName(){};
+```js
+function someFnName() {}
 
 module.export.name = "shweta";
 module.export.handler = someFnName;
-
 ```
 
 Way 4:
 
-```
-function someFnName(){};
+```js
+function someFnName() {}
 
 vexport.name = "shweta";
 vexport.handler = someFnName;
-
 ```
 
 ## Express
 
-```
+```js
 app.use((req, res, next) => {
   console.log("use 1");
   next(); //allows the req to continue to next middleware in line
 });
 ```
 
-# Section 5: Working with Express.js
+## Section 5: Working with Express.js
 
-```
+```js
 <!-- Before shifting things to router -->
 const express = require("express");
 const bodyParser = require("body-parser");
@@ -165,41 +164,38 @@ app.listen(port);
 
 ```
 
-### Advantage of using app.get():
+### Advantage of using app.get()
 
 app.get() or router.get() uses matchers whereas app.use() or router.use() doesn't.
 Send req to any other route app.use() will always return value from "/", if it is declared ahead of other routes
 
+```js
+app.use("/", () => {});
+app.use("/add-products", () => {});
 ```
-app.use("/",()=>{})
-app.use("/add-products",()=>{})
 
-```
+### Filtering routes
 
-### Filtering routes:
-
-```
+```js
 //./app.js
-app.use("/admin",shopRouter)
-
+app.use("/admin", shopRouter);
 ```
 
-```
+```js
 //./router/shop.js
-router.get("/add-products",()=>{})
-router.post("/add-products",()=>{}) //same route name can exist for different methods
-
+router.get("/add-products", () => {});
+router.post("/add-products", () => {}); //same route name can exist for different methods
 ```
 
 now route for shopRouter will look like this
 GET: "/add-products" ==> "/admin/add-products"
 POST: "/add-products" ==> "/admin/add-products"
 
-## Alternative way of importing html files for response:
+## Alternative way of importing html files for response
 
 Amateur way:
 
-```
+```js
 //shop.js
 
 const express = require("express");
@@ -211,18 +207,15 @@ router.get("/", (req, res, next) => {
 });
 
 module.exports = router;
-
 ```
 
 Better way:
 
-```
+```js
 //util/path.js
 const path = require("path");
 
 module.exports = path.dirname(require.main.filename);
-
-
 
 //shop.js
 const express = require("express");
@@ -235,15 +228,13 @@ router.get("/", (req, res, next) => {
 });
 
 module.exports = router;
-
-
 ```
 
-## Getting access to css file:
+## Getting access to css file
 
 - Use express static fn for exposing static files like css.
 
-```
+```js
 //app.js
 ...
 app.use(bodyPaser.url....);
@@ -258,16 +249,16 @@ app.use(shopRoutes);
 .
 ```
 
-# Section 6: Working with Dynamic Content & Adding Templating Engines
+## Section 6: Working with Dynamic Content & Adding Templating Engines
 
 ### Set variable globally in your express server
 
-```
-app.set("title","My Site");
+```js
+app.set("title", "My Site");
 
 app.get("title"); //My Site
 
-app.set("view engine","pug");
+app.set("view engine", "pug");
 //it doesn't work for engine like this
 ```
 
@@ -275,25 +266,23 @@ Pug ships with built-in support for express and it auto register itself with exp
 
 If you named folder "templates" instead of "views" which stores html files then
 
-```
-app.set("views","templates");
+```js
+app.set("views", "templates");
 ```
 
 ## Pug template set-up
 
-```
+```js
 const express = require("express");
 const path = require("path");
 const rootDir = require("../util/path");
 const router = express.Router();
 
 router.get("/", (req, res, next) => {
-  res.render("shop")
+  res.render("shop");
 });
 
 module.exports = router;
-
-
 ```
 
 - it will use default templating engine that's why we declared app.set("view engine","pug") in app.js
@@ -302,7 +291,7 @@ module.exports = router;
 
 ### sending dynamic data
 
-```
+```js
 router.get("/", (req, res, next) => {
   res.render("shop", {
     products: adminData.data,
@@ -310,12 +299,11 @@ router.get("/", (req, res, next) => {
     path: "/",
   }); //it will use default templating engine that's why we declared app.set("view engine","pug")
 });
-
 ```
 
 ### using extend to share UI components
 
-```
+```js
 //layout/main-layout.pug
 doctype html
 html(lang="en")
@@ -356,7 +344,7 @@ block content
 
 - handlebars doesn't auto setup express
 
-```
+```js
 const expressHbs = require("express-handlebars");
 
 //setting up HANDLEBARS template engine
@@ -371,37 +359,269 @@ app.engine(
   })
 );
 app.set("view engine", "hbs");
-
 ```
 
 ## EJS template set-up
 
 - doesn't need to setup like express-handlebars
 
-```
+```js
 app.set("view engine", "ejs");
 app.set("views", "views");
-
 ```
 
-```
+```js
 <%= {someVariable}> //will render as string
 <%- include("includes/head.ejs) %> //will render as html
 ```
 
-# Section 7: Model View Controller (MVC):
+## Section 7: Model View Controller (MVC)
 
-### Model:
+### Model
 
 - Represent your data in your code
 - Work with your data (e.g save, fetch)
 
-### View:
+### View
 
 - What the users see
 - Decoupled from your application code
 
-### Controller:
+### Controller
 
 - Connecting your models and your views
 - Contains "in-between" logic.
+
+## Database
+
+## MySQL
+
+### how to integrate mysql
+
+- install mysql2 package
+- add this in utils folder database.js
+
+```js
+const mySql = require("mysql2");
+
+//this will connect to db for each fired query & then exist connection
+//each query will have their own connection with db
+//this makes connection alive & can connect when ever query is fired
+const pool = mySql.createPool({
+  host: "localhost",
+  user: "root",
+  password: "shweta@123",
+  database: "node-schema",
+});
+
+module.exports = pool.promise();
+```
+
+- import into models folder where data is handled for manipulation & storage purpose
+
+```js
+//----------------------------------------------------------------
+//                    Storing data in SQL DBs
+//----------------------------------------------------------------
+const db = require("../util/database");
+const Cart = require("./cart");
+
+module.exports = class Product {
+  constructor(id, title, imageUrl, description, price) {
+    this.id = id;
+    this.title = title;
+    this.imageUrl = imageUrl;
+    this.description = description;
+    this.price = price;
+  }
+
+  save() {
+    //to protect from input sql injection, we are giving ?, ?, .. for values
+    return db.execute(
+      "INSERT INTO products (title, imgUrl, description, price) VALUES (?, ?, ?, ?)",
+      [this.title, this.imageUrl, this.description, this.price]
+    );
+  }
+
+  static deleteById(id) {}
+
+  static fetchAll() {
+    return db.execute("SELECT * FROM `node-schema`.products");
+  }
+
+  static findById(id) {
+    return db.execute("SELECT * FROM products WHERE products.id = ?", [id]);
+  }
+};
+```
+
+- usage in controller
+
+```js
+const ProductDB = require("../models/product.db");
+const Cart = require("../models/cart");
+
+exports.getProducts = (req, res, next) => {
+  ProductDB.fetchAll()
+    .then(([products]) => {
+      res.render("shop/product-list", {
+        prods: products,
+        pageTitle: "All Products",
+        path: "/products",
+      });
+    })
+    .catch((err) => {});
+};
+
+exports.getProduct = (req, res, next) => {
+  const prodId = req.params.productId;
+  ProductDB.findById(prodId)
+    .then(([product]) => {
+      res.render("shop/product-detail", {
+        product: product[0],
+        pageTitle: product[0].title,
+        path: "/products",
+      });
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+exports.getIndex = (req, res, next) => {
+  ProductDB.fetchAll()
+    .then(([products]) => {
+      res.render("shop/index", {
+        prods: products,
+        pageTitle: "Shop",
+        path: "/",
+      });
+    })
+    .catch((err) => {});
+};
+
+exports.getCart = (req, res, next) => {
+  Cart.getCart((cart) => {
+    ProductDB.fetchAll()
+      .then(([products]) => {
+        const cartProducts = [];
+        for (const product of products) {
+          const cartProductData = cart.products.find(
+            (prod) => prod.id === product.id
+          );
+          if (cartProductData) {
+            cartProducts.push({
+              productData: product,
+              qty: cartProductData.qty,
+            });
+          }
+        }
+        res.render("shop/cart", {
+          path: "/cart",
+          pageTitle: "Your Cart",
+          products: cartProducts,
+        });
+      })
+      .catch((err) => {});
+  });
+};
+
+exports.postCart = (req, res, next) => {
+  const prodId = req.body.productId;
+  ProductDB.findById(prodId)
+    .then(([product]) => {
+      Cart.addProduct(prodId, product[0].price);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.postCartDeleteProduct = (req, res, next) => {
+  ProductDB.findById(prodId)
+    .then(([product]) => {
+      Cart.deleteProduct(prodId, product[0].price);
+      res.redirect("/cart");
+    })
+    .catch((err) => {
+      console.error(err);
+    });
+};
+
+exports.getOrders = (req, res, next) => {
+  res.render("shop/orders", {
+    path: "/orders",
+    pageTitle: "Your Orders",
+  });
+};
+
+exports.getCheckout = (req, res, next) => {
+  res.render("shop/checkout", {
+    path: "/checkout",
+    pageTitle: "Checkout",
+  });
+};
+```
+
+```js
+app.js;
+const db = require("./util/database");
+db.execute("SELECT * FROM products")
+  .then((data) => console.log("dta->", data))
+  .catch((err) => console.error(err));
+```
+
+### mySQL using Sequelize
+
+- it is a ORM (Object Relational Mapping ) library
+- instead of writing SQL long query we can just use regular JS object to add data to database
+
+```js
+const user = User.create({name:"...", age:23, password:"sdjh@jhjd})
+```
+
+- it requires you to install
+
+`npm i mysql2 sequelize`
+
+- config for product table
+
+```javascript
+const { DataTypes } = require("sequelize");
+const sequelize = require("../util/database");
+
+const Product = sequelize.define("Product", {
+  id: {
+    type: DataTypes.INTEGER,
+    autoIncrement: true,
+    allowNull: false,
+    primaryKey: true,
+  },
+  title: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  price: {
+    type: DataTypes.DOUBLE,
+    allowNull: false,
+  },
+  imgUrl: {
+    type: DataTypes.STRING,
+    allowNull: false,
+  },
+  description: {
+    type: DataTypes.STRING,
+    allowNull: true,
+  },
+});
+
+module.exports = Product;
+```
+
+```javascript
+//utilizing ProductSequelize
+const Product=new Product();
+Product.create(...) //creates and auto save
+Product.build(...)//create but you have to manually save it to DB
+
+```
